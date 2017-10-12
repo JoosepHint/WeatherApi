@@ -7,11 +7,11 @@ import lombok.Data;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Response {
+public class WeatherResponse {
     @JsonProperty("cod")
     private String code;
     @JsonProperty("cnt")
-    private Long count;
+    private Long forecastCount;
     @JsonProperty("list")
     private List<Forecast> forecasts;
     @JsonProperty("city")
@@ -25,12 +25,12 @@ public class Response {
         this.code = code;
     }
 
-    public Long getCount() {
-        return count;
+    public Long getForecastCount() {
+        return forecastCount;
     }
 
-    public void setCount(Long count) {
-        this.count = count;
+    public void setForecastCount(Long count) {
+        this.forecastCount = count;
     }
 
     public List<Forecast> getForecasts() {
@@ -53,7 +53,7 @@ public class Response {
     public String toString() {
         return "Response{" +
                 "code='" + code + '\'' +
-                ", count=" + count +
+                ", count=" + forecastCount +
                 ", forecasts=" + forecasts +
                 ", city=" + city +
                 '}';

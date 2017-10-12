@@ -16,7 +16,7 @@ public class Forecast {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime date;
     @JsonProperty("main")
-    private Main main;
+    private Temperature temperature;
     @JsonProperty("weather")
     private List<Weather> weather;
 
@@ -28,13 +28,6 @@ public class Forecast {
         this.date = date;
     }
 
-    public Main getMain() {
-        return main;
-    }
-
-    public void setMain(Main main) {
-        this.main = main;
-    }
 
     public List<Weather> getWeather() {
         return weather;
@@ -44,10 +37,18 @@ public class Forecast {
         this.weather = weather;
     }
 
+    public Temperature getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Temperature temperature) {
+        this.temperature = temperature;
+    }
+
     @Override
     public String toString() {
         return "Forecast{" +
-                "main=" + main +
+                "temperature=" + temperature +
                 ", weather=" + weather +
                 '}';
     }

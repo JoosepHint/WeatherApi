@@ -1,5 +1,5 @@
 import entity.Forecast;
-import entity.Response;
+import entity.WeatherResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(JUnit4.class)
 public class ApiTest {
 
-    private Response response;
+    private WeatherResponse response;
 
     @Before
     public void setup() {
@@ -33,28 +33,36 @@ public class ApiTest {
     @Test
     public void testCorrectCity() {
         assertEquals("EE", response.getCity().getCountry());
+    }
+
+    @Test
+    public void testCorrectLatitude() {
         assertEquals(59.437D, response.getCity().getCoord().getLatitude(), 0.5);
+    }
+
+    @Test
+    public void testCorrectLongitude() {
         assertEquals(24.7D, response.getCity().getCoord().getLongitude(), 0.5);
     }
 
     @Test
     public void testCorrectMomentTemperature() {
-        assertNotNull(response.getForecasts().get(0).getMain().getTemp());
+        assertNotNull(response.getForecasts().get(0).getTemperature().getTemp());
     }
 
     @Test
     public void testCorrectMaxTemperature() {
-        assertNotNull(response.getForecasts().get(0).getMain().getTempMax());
+        assertNotNull(response.getForecasts().get(0).getTemperature().getTempMax());
     }
 
     @Test
     public void testCorrectMinTemperature() {
-        assertNotNull(response.getForecasts().get(0).getMain().getTempMin());
+        assertNotNull(response.getForecasts().get(0).getTemperature().getTempMin());
     }
 
     @Test
     public void testCorrectTemperaturesAmount() {
-        assertEquals(response.getCount(), new Long(response.getForecasts().size()));
+        assertEquals(response.getForecastCount(), new Long(response.getForecasts().size()));
     }
 
     @Test
