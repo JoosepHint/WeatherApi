@@ -60,12 +60,12 @@ public class ApiTestMock {
 
     @Test
     public void testCorrectLatitude() {
-        assertEquals(59.437D, response.getCity().getCoord().getLatitude(), 0.5);
+        assertEquals(59.437D, response.getCity().getCoordinates().getLatitude(), 0.5);
     }
 
     @Test
     public void testCorrectLongitude() {
-        assertEquals(24.7D, response.getCity().getCoord().getLongitude(), 0.5);
+        assertEquals(24.7D, response.getCity().getCoordinates().getLongitude(), 0.5);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class ApiTestMock {
 
     @Test
     public void testCorrectCoordinatesFormat() {
-        assertEquals("59:25", response.getCity().getCoord().getFormattedCoordinates());
+        assertEquals("59:25", response.getCity().getCoordinates().getFormattedCoordinates());
     }
 
     @Test

@@ -73,9 +73,9 @@ public class WeatherService {
         StringBuilder forecasts = new StringBuilder();
         int forecastOfDay = 0;
         int dayCount = 0;
-        Integer today = 0;
+        int dayOfMonth = 0;
         for (Forecast forecast : response.getForecasts()) {
-            if (forecast.getDate().getDayOfMonth() != today) {
+            if (forecast.getDate().getDayOfMonth() != dayOfMonth) {
                 if (dayCount == 0) {
                     forecasts.append("Esimene päev - \n");
                 } else if (dayCount == 1) {
@@ -84,7 +84,7 @@ public class WeatherService {
                     forecasts.append("Kolmas päev - \n");
                 }
 
-                today = forecast.getDate().getDayOfMonth();
+                dayOfMonth = forecast.getDate().getDayOfMonth();
                 dayCount++;
                 if (dayCount > 3) { // Only get results for first three days
                     break;
@@ -106,7 +106,7 @@ public class WeatherService {
         }
 
         String data = response.getCity().getName() + " " +
-                response.getCity().getCoord().getFormattedCoordinates() + "\n" +
+                response.getCity().getCoordinates().getFormattedCoordinates() + "\n" +
                 "Esimese kolme päeva ennustused\n" +
                 forecasts +
                 "Hetke temperatuur - " + response.getForecasts().get(0).getTemperature().getTemp() + "K";

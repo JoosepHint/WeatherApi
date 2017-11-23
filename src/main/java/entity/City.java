@@ -1,13 +1,13 @@
 package entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class City {
     private Long id;
     private String name;
     private String country;
-    private Coordinates coord;
+    @JsonProperty("coord")
+    private Coordinates coordinates;
 
     @Override
     public String toString() {
@@ -15,7 +15,7 @@ public class City {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
-                ", coord=" + coord +
+                ", coordinates=" + coordinates +
                 '}';
     }
 
@@ -43,11 +43,11 @@ public class City {
         this.country = country;
     }
 
-    public Coordinates getCoord() {
-        return coord;
+    public Coordinates getCoordinates() {
+        return coordinates;
     }
 
-    public void setCoord(Coordinates coord) {
-        this.coord = coord;
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 }
