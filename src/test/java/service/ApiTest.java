@@ -1,3 +1,5 @@
+package service;
+
 import entity.Forecast;
 import entity.WeatherResponse;
 import org.junit.Before;
@@ -10,8 +12,6 @@ import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApiTest {
@@ -21,7 +21,8 @@ public class ApiTest {
     @Before
     public void setup() {
         try {
-            response = new WeatherService().getApiResponse("Tallinn");
+            WeatherService weatherService = new WeatherService();
+            response = weatherService.getApiResponse("Tallinn");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,20 +34,12 @@ public class ApiTest {
     }
 
     @Test
-    public void testCorrectJSONParsing() throws Exception {
-        WeatherService weatherService = spy(WeatherService.class);
-        when(weatherService.getWeatherApiResponseJSON("Tallinn")).thenReturn("{ \"cod\": \"200\", \"message\": 0.003, \"cnt\": 1, \"list\": [{ \"dt\": 1510066800, \"main\": { \"temp\": 278.32, \"temp_kf\": -0.3 }, \"weather\": [{ \"id\": 800 }], \"dt_txt\": \"2017-11-07 15:00:00\" }], \"city\": { \"id\": 588409, \"name\": \"Tallinn\", \"coord\": { \"lat\": 59.437, \"lon\": 24.7535 }, \"country\": \"EE\" } }");
-        WeatherResponse weatherResponse = weatherService.getApiResponse("Tallinn");
-
-        assertEquals(new Long(1), weatherResponse.getForecastCount());
-        assertEquals("Tallinn", weatherResponse.getCity().getName());
-        assertEquals(new Double(59.437), weatherResponse.getCity().getCoord().getLatitude());
-        assertEquals(new Double(24.7535), weatherResponse.getCity().getCoord().getLongitude());
-        assertEquals(new Double(278.32), weatherResponse.getForecasts().get(0).getTemperature().getTemp());
+    public void testCorrectCity() {
+        assertEquals("Tallinn", response.getCity().getName());
     }
 
     @Test
-    public void testCorrectCity() {
+    public void testCorrectCountry() {
         assertEquals("EE", response.getCity().getCountry());
     }
 
@@ -89,10 +82,5 @@ public class ApiTest {
             }
             date = forecast.getDate();
         }
-    }
-
-    @Test
-    public void testCorrectCoordinatesFormat() {
-        assertEquals("59:25", response.getCity().getCoord().getFormattedCoordinates());
     }
 }
